@@ -1,14 +1,14 @@
-import DBStorage
-import DaumNewsCrawling
-import DaumFinacingCrawling
-from multiprocessing import Pool
-import time
-from konlpy.tag import  Kkma
-from konlpy.utils import pprint
-from konlpy.tag import  Okt
-from konlpy.tag import Mecab
+
 from konlpy.tag import Hannanum
+from konlpy.tag import Kkma
 from konlpy.tag import Komoran
+from konlpy.tag import Mecab
+from konlpy.tag import Okt
+
+from Helper import DBStorage
+from Crawling import DaumNewsCrawling
+from Crawling import DaumFinacingCrawling
+
 
 # newsData = DaumNewsCrawling.NewsData(133, "Sprots", "KIA 이범호 '안타'", "2018-10-09", "")
 #

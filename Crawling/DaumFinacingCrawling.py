@@ -1,9 +1,12 @@
-import httpWeb
-import DBStorage
-import enum
 import datetime
+import enum
 from multiprocessing import Pool
+
 from bs4 import BeautifulSoup
+
+from Helper import DBStorage
+from Helper import httpWeb
+
 
 class FinanceData:
     privateKey = ""
@@ -99,8 +102,9 @@ class DaumFinacingCrawling:
                 code = infoNode["id"].split('_')[2]
                 price = infoNode.find_all("span")[0].text
                 link = self._BaseUrl + code;
-                self._actions.append(httpWeb.HttpWeb(link, self.CallDelegate(self.on_success_item, category, title, code,  price, kind),
-                                                 self.CallDelegate(self.on_failed_item, title, code, category, price, kind)).execute)
+                self._actions.append(
+                    httpWeb.HttpWeb(link, self.CallDelegate(self.on_success_item, category, title, code, price, kind),
+                                    self.CallDelegate(self.on_failed_item, title, code, category, price, kind)).execute)
 
 
 

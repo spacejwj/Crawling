@@ -1,12 +1,13 @@
-import httpWeb
 import enum
 import re
-import DBStorage
+from multiprocessing import Pool
 
-from dateutil.parser import  parse
-from multiprocessing import Pool, Manager
 from bs4 import BeautifulSoup
-from functools import partial
+from dateutil.parser import parse
+
+from Helper import DBStorage
+from Helper import httpWeb
+
 
 class NewsData:
     Index = 0
