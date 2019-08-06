@@ -1,15 +1,7 @@
-from ctypes import *
-import os
+from ctypes import  *
 
-from XingAPI.Xing_LogIn import XSession
+import  os
 
-#xaCommonDll = windll.LoadLibrary(os.path.abspath("XA_Common.dll"))
+xaDataSetDll = windll.LoadLibrary(os.path.abspath("XA_DataSet.dll"))
 #xaSessionDll = windll.LoadLibrary(os.path.abspath("XA_Session.dll"))
-#xaDataSetDll = windll.LoadLibrary(os.path.abspath("XA_DataSet.dll"))
-
-xsession = XSession.get_instance()
-xsession.api_login()
-xsession.account_info()
-
-
 

@@ -101,11 +101,10 @@ class DaumFinacingCrawling:
                 infoNode = stockNode.find("dd")
                 code = infoNode["id"].split('_')[2]
                 price = infoNode.find_all("span")[0].text
-                link = self._BaseUrl + code
-                self.SetDB(category, title, code, price, kind)
-                #self._actions.append(
-                #   httpWeb.HttpWeb(link, self.CallDelegate(self.on_success_item, category, title, code, price, kind),
-                #                    self.CallDelegate(self.on_failed_item, title, code, category, price, kind)).execute)
+                link = self._BaseUrl + code;
+                self._actions.append(
+                    httpWeb.HttpWeb(link, self.CallDelegate(self.on_success_item, category, title, code, price, kind),
+                                    self.CallDelegate(self.on_failed_item, title, code, category, price, kind)).execute)
 
 
 
@@ -150,29 +149,7 @@ class DaumFinacingCrawling:
     def on_failed(self, data, category, price = 0, kind = ""):
         print("failed %s" % category)
 
-    def SetDB(self, category, title, code, price, kind):
-        dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
-        timeStr = datetime.datetime.now().strftime("%H:%M:%S")
-        privateKey = code + "_" + dateStr
 
-        dataObj = FinanceData(privateKey, code, title, price, 0, 0, category.name, kind, dateStr, timeStr)
-
-        isContain =  DBStorage.DBStorage.instance().IsContainByParam(dataObj, "privateKey", privateKey)
-        if isContain:
-            priceList = DBStorage.DBStorage.instance().GetTableData(dataObj, "privateKey", privateKey, "priceList")
-            priceList = priceList + "," + price
-            DBStorage.DBStorage.instance().UpdateTableData(dataObj, "privateKey", privateKey, "priceList", priceList)
-
-            tradeList = DBStorage.DBStorage.instance().GetTableData(dataObj, "privateKey", privateKey, "tradeList")
-            tradeList = tradeList + "," + trade
-            DBStorage.DBStorage.instance().UpdateTableData(dataObj, "privateKey", privateKey, "tradeList", tradeList)
-
-            timeList = DBStorage.DBStorage.instance().GetTableData(dataObj, "privateKey", privateKey, "timeList")
-            timeList = timeList + "," + timeStr
-            DBStorage.DBStorage.instance().UpdateTableData(dataObj, "privateKey", privateKey, "timeList", timeList)
-
-        else:
-            DBStorage.DBStorage.instance().Insert(dataObj)
 
     def on_success_item(self, data, category, title, code, price, kind):
         #print("successItem %s" % category)
